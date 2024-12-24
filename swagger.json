@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": " Movieflix API",
+    "description": "API responsavel por gerenciar os filmes do Movieflix",
+    "version": "5.0.1"
+  },
+  "paths": {
+    "/movies": {
+      "get": {
+        "tags": ["Movie"],
+        "summary": "Obter todos os filmes",
+        "responses": {
+          "200": {
+            "description": "Retorna uma lista de filmes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Movie": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Titulo do filme"
+          },
+          "genre_id": {
+            "type": "integer",
+            "description": "Genero do filme"
+          },
+          "genres": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "ID do genero"
+              },
+              "name": {
+                "type": "string",
+                "description": "Nome do genero"
+              }
+            }
+          },
+          "language_id": {
+            "type": "integer",
+            "description": "Idioma do filme"
+          },
+          "languages": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "description": "ID do genero"
+              },
+              "name": {
+                "type": "string",
+                "description": "Nome do Idioma"
+              }
+            }
+          },
+          "oscar_count": {
+            "type": "integer",
+            "description": "Quantidade de oscar do filme"
+          },
+          "release_date": {
+            "type": "string",
+            "format": "date",
+            "description": "Data de lançamento do filme"
+          }
+        }
+      }
+    }
+  }
+}
