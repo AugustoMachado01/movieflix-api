@@ -120,15 +120,22 @@ app.put("/movies/:id", async (req: Request, res: Response) => {
 app.delete("/movies/:id", async (req: Request, res: Response) => {
   const id = Number(req.params.id);
 
-  const movie = await prisma.movie.findUnique({ where: { id } });
+  try {
+    const movie = await prisma.movie.findUnique({ where: { id } });
 
-  if (!movie) {
-    res.status(404).json({ message: "Filme não encontrado" });
-    return;
+    if (!movie) {
+      res.status(404).json({ message: "Filme não encontrado" });
+      return;
+    }
+
+    await prisma.movie.delete({ where: { id } });
+
+    res.status(200).json({ message: "Filme deletado com sucesso" });
+  } catch (error) {
+    if (error) {
+      res.status(500).json({ message: "Não foi possivel remover o filme" });
+    }
   }
-  await prisma.movie.delete({ where: { id } });
-
-  res.status(200).json({ message: "Filme deletado com sucesso" });
 });
 
 app.get("/movies/:genreName", async (req: Request, res: Response) => {
